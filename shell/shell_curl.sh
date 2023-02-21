@@ -2,9 +2,9 @@
 
 set -o pipefail
 
-ORGANIZATION="simongdkelly"
-PROJECT="demo-x"
-AUTH_TOKEN="A81b1VZc.D9pJUitKVegddHPD4MoNwcNRQQD7cH7D"
+ORGANIZATION="demo"
+PROJECT="demo"
+AUTH_TOKEN="secret"
 
 function callAPI {
   PAYLOAD=$1
