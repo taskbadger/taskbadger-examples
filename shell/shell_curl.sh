@@ -7,6 +7,10 @@ PROJECT="demo"
 AUTH_TOKEN="secret"
 
 function callAPI {
+  # Call the Task Badger API with a payload to create or update a task.
+  # Arguments:
+  #    1: JSON payload
+  #    2: (optional) ID of task to update
   PAYLOAD=$1
   TASK_ID=$2
   URL="https://taskbadger.net/api/${ORGANIZATION}/${PROJECT}/tasks/"
@@ -20,7 +24,10 @@ function callAPI {
     -d "$PAYLOAD" --fail --silent
 }
 
-function createTask() {
+function registerTask() {
+  # Register task in Task Badger
+  # Arguments:
+  #   1. Task name
   NAME="$1"
   PAYLOAD=$(jq -n --arg name "$NAME" '{"name": $name, "status": "processing"}')
   TASK_ID=$(callAPI "$PAYLOAD" | jq '.id' --raw-output)
@@ -30,6 +37,10 @@ function createTask() {
 }
 
 function updateTaskStatus {
+  # Update task status
+  # Arguments:
+  #   1. Task name
+  #   2. Task status
   TASK_ID="$1"
   # Exit early if the task ID is empty
   test -z "$TASK_ID" && return 1
@@ -41,7 +52,7 @@ function updateTaskStatus {
   test $? -ne 0 && echo "Unable to update task status" 1>&2;
 }
 
-TASK_ID=$(createTask "demo task 1")
+TASK_ID=$(registerTask "demo task 1")
 
 # Perform the actual task in a subshell
 (
