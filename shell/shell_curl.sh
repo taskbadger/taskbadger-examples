@@ -24,7 +24,7 @@ function callAPI {
     -d "$PAYLOAD" --fail --silent
 }
 
-function registerTask() {
+function registerTask {
   # Register task in Task Badger
   # Arguments:
   #   1. Task name
